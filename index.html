@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assim Diel Boucka — Développeur Web & Spécialiste No-Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        syne: ['Syne', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; overflow-x: hidden; cursor: none; }
+
+        .cursor-dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s; }
+        .cursor-ring { width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.15s ease-out; }
+        .cursor-ring.hover { width: 60px; height: 60px; border-color: #f7b733; background: rgba(247,183,51,0.1); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #f7b733; border-radius: 3px; }
+
+        .grid-bg { background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; animation: float 8s ease-in-out infinite; }
+        .orb-1 { width: 500px; height: 500px; background: #f7b733; top: -100px; left: -100px; }
+        .orb-2 { width: 400px; height: 400px; background: #fc4a1a; bottom: -100px; right: -100px; animation-delay: -4s; }
+        .orb-3 { width: 300px; height: 300px; background: #7b2ff7; top: 50%; left: 50%; animation-delay: -2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .typing-cursor { display: inline-block; width: 3px; height: 1em; background: #f7b733; margin-left: 4px; animation: blink 1s infinite; vertical-align: text-bottom; }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.8); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-scale.active { opacity: 1; transform: scale(1); }
+
+        .skill-fill { width: 0; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .skill-fill.animate { width: var(--w); }
+
+        .tilt-card { transition: transform 0.3s ease; transform-style: preserve-3d; }
+
+        .float-badge { animation: floatBadge 3s ease-in-out infinite; }
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .marquee-track { display: flex; animation: marquee 20s linear infinite; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .magnetic-btn { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .glitch { position: relative; }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .glitch::before { animation: glitch-1 2s infinite linear alternate-reverse; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); color: #fc4a1a; }
+        .glitch::after { animation: glitch-2 2s infinite linear alternate-reverse; clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); color: #7b2ff7; }
+        @keyframes glitch-1 {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-2px); }
+            40% { transform: translateX(2px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(1px); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes glitch-2 {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(2px); }
+            40% { transform: translateX(-2px); }
+            60% { transform: translateX(1px); }
+            80% { transform: translateX(-1px); }
+            100% { transform: translateX(0); }
+        }
+
+        #particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+        .counter { font-variant-numeric: tabular-nums; }
+
+        .project-overlay { opacity: 0; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-card:hover .project-img { transform: scale(1.1); filter: brightness(0.4); }
+        .project-img { transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: #f7b733;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .pulse-ring { animation: pulseRing 2s infinite; }
+        @keyframes pulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(247,183,51,0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(247,183,51,0); }
+            100% { box-shadow: 0 0 0 0 rgba(247,183,51,0); }
+        }
+
+        .timeline-line { width: 2px; background: linear-gradient(to bottom, #f7b733, #fc4a1a, #7b2ff7); }
+
+        .toast {
+            position: fixed; bottom: 30px; right: 30px;
+            background: rgba(247,183,51,0.15); border: 1px solid #f7b733;
+            backdrop-filter: blur(12px); padding: 16px 24px; border-radius: 12px;
+            transform: translateY(100px); opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 9999;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0a0a; z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.6s, visibility 0.6s;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+        .loader-fill { height: 100%; background: linear-gradient(90deg, #f7b733, #fc4a1a); width: 0; animation: load 1.5s ease forwards; border-radius: 2px; }
+        @keyframes load { to { width: 100%; } }
+
+        .card-shine { position: relative; overflow: hidden; }
+        .card-shine::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .card-shine:hover::before { opacity: 1; }
+
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+    </style>
+</head>
+<body class="grid-bg">
+
+<!-- Loading Screen -->
+<div id="loader">
+    <div class="text-center">
+        <p class="font-syne text-2xl font-bold mb-6 tracking-tight">ADB</p>
+        <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+</div>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+    <p class="text-sm font-medium text-[#f7b733]">✨ Message envoyé avec succès !</p>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <a href="#hero" class="font-syne text-2xl font-bold tracking-tight group">
+            <span class="text-white group-hover:text-[#f7b733] transition-colors duration-300">A</span><span class="text-[#f7b733]">DB</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+            <a href="#about" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">À propos</a>
+            <a href="#skills" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">Compétences</a>
+            <a href="#nocode" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">No-Code & IA</a>
+            <a href="#projects" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">Projets</a>
+            <a href="#contact" class="nav-link text-sm font-medium text-gray-400 hover:text-white transition-colors">Contact</a>
+        </div>
+        <button id="menuBtn" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 group">
+            <span class="w-6 h-0.5 bg-white transition-all duration-300 group-hover:w-4 group-hover:bg-[#f7b733]" id="menuLine1"></span>
+            <span class="w-6 h-0.5 bg-white transition-all duration-300 group-hover:bg-[#f7b733]" id="menuLine2"></span>
+            <span class="w-4 h-0.5 bg-white transition-all duration-300 group-hover:w-6 group-hover:bg-[#f7b733]" id="menuLine3"></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 z-40 bg-[#0a0a0a]/98 backdrop-blur-xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+    <div class="text-center space-y-8">
+        <a href="#about" class="block font-syne text-4xl font-bold text-white hover:text-[#f7b733] transition-colors mobile-link">À propos</a>
+        <a href="#skills" class="block font-syne text-4xl font-bold text-white hover:text-[#f7b733] transition-colors mobile-link">Compétences</a>
+        <a href="#nocode" class="block font-syne text-4xl font-bold text-white hover:text-[#f7b733] transition-colors mobile-link">No-Code & IA</a>
+        <a href="#projects" class="block font-syne text-4xl font-bold text-white hover:text-[#f7b733] transition-colors mobile-link">Projets</a>
+        <a href="#contact" class="block font-syne text-4xl font-bold text-white hover:text-[#f7b733] transition-colors mobile-link">Contact</a>
+    </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <canvas id="particles"></canvas>
+
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md float-badge">
+            <span class="w-2 h-2 bg-green-400 rounded-full pulse-ring"></span>
+            <span class="text-xs font-semibold uppercase tracking-widest text-gray-400">Disponible pour collaborer</span>
+        </div>
+
+        <h1 class="font-syne text-5xl md:text-7xl lg:text-8xl font-900 leading-[0.9] tracking-tight mb-6">
+            <span class="block" id="heroGreeting">Bonjour, je suis</span>
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#f7b733] via-[#fc4a1a] to-[#7b2ff7] glitch" data-text="Assim Diel">Assim Diel</span>
+            <span class="block text-3xl md:text-5xl lg:text-6xl font-bold mt-2 text-gray-300">Boucka</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-4">
+            <span id="typewriter" class="text-white font-medium"></span><span class="typing-cursor"></span>
+        </p>
+
+        <p class="text-base text-gray-500 max-w-xl mx-auto mb-10">
+            Étudiant en Développement Web · Spécialiste No-Code / Low-Code · Prompt Engineer · Automatisation
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="#projects" class="magnetic-btn group px-8 py-4 bg-gradient-to-r from-[#f7b733] to-[#fc4a1a] rounded-full font-syne font-bold text-sm uppercase tracking-wider text-black hover:shadow-[0_0_30px_rgba(247,183,51,0.4)] transition-all duration-300">
+                Voir mes projets
+                <iconify-icon icon="lucide:arrow-down-right" class="ml-2 inline-block group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"></iconify-icon>
+            </a>
+            <a href="#contact" class="magnetic-btn px-8 py-4 border border-white/20 rounded-full font-syne font-bold text-sm uppercase tracking-wider text-white hover:bg-white/5 hover:border-[#f7b733] transition-all duration-300">
+                Me contacter
+            </a>
+        </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+        <span class="text-[10px] uppercase tracking-widest text-gray-500">Scroll</span>
+        <div class="w-5 h-8 border border-white/20 rounded-full flex justify-center pt-1">
+            <div class="w-1 h-2 bg-[#f7b733] rounded-full animate-pulse"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== MARQUEE ==================== -->
+<div class="py-6 border-y border-white/5 overflow-hidden">
+    <div class="marquee-track">
+        <div class="flex items-center gap-8 px-4 shrink-0">
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Développement Web</span>
+            <span class="text-[#f7b733]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">No-Code</span>
+            <span class="text-[#fc4a1a]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Low-Code</span>
+            <span class="text-[#7b2ff7]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Prompt Engineering</span>
+            <span class="text-[#f7b733]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Automatisation</span>
+            <span class="text-[#fc4a1a]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Cursor</span>
+            <span class="text-[#7b2ff7]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Antigravity</span>
+            <span class="text-[#f7b733]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">React</span>
+            <span class="text-[#fc4a1a]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Firebase</span>
+            <span class="text-[#7b2ff7]">✦</span>
+        </div>
+        <div class="flex items-center gap-8 px-4 shrink-0">
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Développement Web</span>
+            <span class="text-[#f7b733]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">No-Code</span>
+            <span class="text-[#fc4a1a]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Low-Code</span>
+            <span class="text-[#7b2ff7]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Prompt Engineering</span>
+            <span class="text-[#f7b733]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Automatisation</span>
+            <span class="text-[#fc4a1a]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Cursor</span>
+            <span class="text-[#7b2ff7]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Antigravity</span>
+            <span class="text-[#f7b733]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">React</span>
+            <span class="text-[#fc4a1a]">✦</span>
+            <span class="text-sm font-semibold uppercase tracking-widest text-gray-600">Firebase</span>
+            <span class="text-[#7b2ff7]">✦</span>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<section id="about" class="py-24 md:py-32 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal-left">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-[#f7b733]/20 to-[#fc4a1a]/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="relative overflow-hidden rounded-2xl border border-white/10">
+                        <img src="https://picsum.photos/seed/assim-dev-portrait/600/700.jpg" alt="Assim Diel Boucka" class="w-full h-[500px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0a0a] to-transparent h-1/3"></div>
+                        <div class="absolute bottom-6 left-6 right-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 bg-green-400 rounded-full pulse-ring"></div>
+                                <span class="text-sm text-gray-300">Open to work</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal-right">
+                <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f7b733] mb-4 block">À propos de moi</span>
+                <h2 class="font-syne text-4xl md:text-5xl font-800 tracking-tight mb-6">
+                    Créateur de<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f7b733] to-[#fc4a1a]">solutions digitales</span>
+                </h2>
+                <p class="text-gray-400 text-base leading-relaxed mb-6">
+                    Étudiant en Licence 1 Développement Web à l'Université de Côte d'Ivoire, je suis passionné par l'utilisation de l'intelligence artificielle pour améliorer la productivité et créer des solutions digitales innovantes. Motivé, autonome et en apprentissage constant.
+                </p>
+                <p class="text-gray-400 text-base leading-relaxed mb-8">
+                    Spécialiste en <strong class="text-white">No-Code / Low-Code</strong> et <strong class="text-white">Prompt Engineering</strong>, je maîtrise les outils d'automatisation et les IDE assistés par IA comme <strong class="text-[#f7b733]">Cursor</strong> et <strong class="text-[#fc4a1a]">Antigravity</strong> pour livrer des projets rapidement et efficacement.
+                </p>
+
+                <div class="grid grid-cols-3 gap-6 mb-8">
+                    <div class="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+                        <p class="font-syne text-3xl font-bold text-[#f7b733] counter" data-target="10">0</p>
+                        <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">Projets</p>
+                    </div>
+                    <div class="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+                        <p class="font-syne text-3xl font-bold text-[#fc4a1a] counter" data-target="5">0</p>
+                        <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">Outils IA</p>
+                    </div>
+                    <div class="text-center p-4 rounded-xl border border-white/5 bg-white/[0.02]">
+                        <p class="font-syne text-3xl font-bold text-[#7b2ff7] counter" data-target="3">0</p>
+                        <p class="text-xs text-gray-500 mt-1 uppercase tracking-wider">Certifications</p>
+                    </div>
+                </div>
+
+                <a href="#contact" class="inline-flex items-center gap-2 text-[#f7b733] font-semibold text-sm group">
+                    Discutons de votre projet
+                    <iconify-icon icon="lucide:arrow-right" class="group-hover:translate-x-2 transition-transform duration-300"></iconify-icon>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SKILLS ==================== -->
+<section id="skills" class="py-24 md:py-32 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f7b733] mb-4 block">Compétences</span>
+            <h2 class="font-syne text-4xl md:text-6xl font-800 tracking-tight">
+                Mon <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f7b733] to-[#fc4a1a]">arsenal</span> technique
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Dev Web -->
+            <div class="reveal card-shine tilt-card p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#f7b733]/30 transition-all duration-500 group" style="transition-delay: 0ms">
+                <div class="w-14 h-14 rounded-xl bg-[#f7b733]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <iconify-icon icon="lucide:code-2" width="28" class="text-[#f7b733]"></iconify-icon>
+                </div>
+                <h3 class="font-syne text-xl font-bold mb-4">Développement Web</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">HTML / CSS</span><span class="text-[#f7b733]">90%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#f7b733] to-[#fc4a1a] rounded-full" style="--w: 90%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">JavaScript</span><span class="text-[#f7b733]">75%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#f7b733] to-[#fc4a1a] rounded-full" style="--w: 75%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">React</span><span class="text-[#f7b733]">65%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#f7b733] to-[#fc4a1a] rounded-full" style="--w: 65%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Node.js / Firebase</span><span class="text-[#f7b733]">60%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#f7b733] to-[#fc4a1a] rounded-full" style="--w: 60%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No-Code / Low-Code -->
+            <div class="reveal card-shine tilt-card p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#fc4a1a]/30 transition-all duration-500 group" style="transition-delay: 100ms">
+                <div class="w-14 h-14 rounded-xl bg-[#fc4a1a]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <iconify-icon icon="lucide:blocks" width="28" class="text-[#fc4a1a]"></iconify-icon>
+                </div>
+                <h3 class="font-syne text-xl font-bold mb-4">No-Code / Low-Code</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Bubble / Webflow</span><span class="text-[#fc4a1a]">80%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#fc4a1a] to-[#7b2ff7] rounded-full" style="--w: 80%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Make / Zapier</span><span class="text-[#fc4a1a]">85%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#fc4a1a] to-[#7b2ff7] rounded-full" style="--w: 85%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Notion / Airtable</span><span class="text-[#fc4a1a]">90%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#fc4a1a] to-[#7b2ff7] rounded-full" style="--w: 90%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">FlutterFlow</span><span class="text-[#fc4a1a]">70%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#fc4a1a] to-[#7b2ff7] rounded-full" style="--w: 70%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IA & Prompt Engineering -->
+            <div class="reveal card-shine tilt-card p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#7b2ff7]/30 transition-all duration-500 group" style="transition-delay: 200ms">
+                <div class="w-14 h-14 rounded-xl bg-[#7b2ff7]/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <iconify-icon icon="lucide:brain-circuit" width="28" class="text-[#7b2ff7]"></iconify-icon>
+                </div>
+                <h3 class="font-syne text-xl font-bold mb-4">IA & Prompt Engineering</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Prompt Engineering</span><span class="text-[#7b2ff7]">90%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#7b2ff7] to-[#f7b733] rounded-full" style="--w: 90%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">ChatGPT / Claude</span><span class="text-[#7b2ff7]">95%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#7b2ff7] to-[#f7b733] rounded-full" style="--w: 95%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Cursor IDE</span><span class="text-[#7b2ff7]">85%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#7b2ff7] to-[#f7b733] rounded-full" style="--w: 85%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1"><span class="text-gray-400">Antigravity IDE</span><span class="text-[#7b2ff7]">80%</span></div>
+                        <div class="h-1.5 bg-white/5 rounded-full overflow-hidden"><div class="skill-fill h-full bg-gradient-to-r from-[#7b2ff7] to-[#f7b733] rounded-full" style="--w: 80%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="mt-16 reveal">
+            <h3 class="font-syne text-2xl font-bold text-center mb-8">Outils & Technologies</h3>
+            <div class="flex flex-wrap justify-center gap-4" id="toolsGrid">
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="logos:vscode-icons" class="mr-2 align-middle"></iconify-icon>VS Code
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="lucide:git-branch" class="mr-2 align-middle text-orange-400"></iconify-icon>Git
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#fc4a1a] hover:border-[#fc4a1a]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="lucide:cursor" class="mr-2 align-middle text-blue-400"></iconify-icon>Cursor
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#fc4a1a] hover:border-[#fc4a1a]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="lucide:rocket" class="mr-2 align-middle text-purple-400"></iconify-icon>Antigravity
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#7b2ff7] hover:border-[#7b2ff7]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="logos:firebase" class="mr-2 align-middle"></iconify-icon>Firebase
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="logos:react" class="mr-2 align-middle"></iconify-icon>React
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="logos:nodejs-icon" class="mr-2 align-middle"></iconify-icon>Node.js
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#fc4a1a] hover:border-[#fc4a1a]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="lucide:workflow" class="mr-2 align-middle text-green-400"></iconify-icon>Make
+                </div>
+                <div class="tool-tag px-5 py-3 rounded-xl border border-white/5 bg-white/[0.02] text-sm font-medium text-gray-400 hover:text-[#7b2ff7] hover:border-[#7b2ff7]/30 transition-all duration-300 cursor-default">
+                    <iconify-icon icon="lucide:zap" class="mr-2 align-middle text-yellow-400"></iconify-icon>Zapier
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== NO-CODE & IA SECTION ==================== -->
+<section id="nocode" class="py-24 md:py-32 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#7b2ff7]/5 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16 reveal">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#7b2ff7] mb-4 block">No-Code & Intelligence Artificielle</span>
+            <h2 class="font-syne text-4xl md:text-6xl font-800 tracking-tight">
+                L'IA au service de<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#7b2ff7] to-[#f7b733]">votre productivité</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Prompt Engineering -->
+            <div class="reveal-left card-shine p-8 md:p-10 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#7b2ff7]/30 transition-all duration-500 group">
+                <div class="flex items-start gap-5">
+                    <div class="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-[#7b2ff7] to-[#f7b733] flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+                        <iconify-icon icon="lucide:sparkles" width="32" class="text-white"></iconify-icon>
+                    </div>
+                    <div>
+                        <h3 class="font-syne text-2xl font-bold mb-3">Prompt Engineering</h3>
+                        <p class="text-gray-400 leading-relaxed mb-4">
+                            Maîtrise avancée de la conception de prompts pour tirer le meilleur parti des modèles d'IA. Création de systèmes de prompts complexes, chaînes de raisonnement et optimisation pour des résultats précis et reproductibles.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#7b2ff7]/10 text-[#7b2ff7] border border-[#7b2ff7]/20">Chain-of-Thought</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#7b2ff7]/10 text-[#7b2ff7] border border-[#7b2ff7]/20">Few-Shot</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#7b2ff7]/10 text-[#7b2ff7] border border-[#7b2ff7]/20">System Prompts</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#7b2ff7]/10 text-[#7b2ff7] border border-[#7b2ff7]/20">RAG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cursor & Antigravity -->
+            <div class="reveal-right card-shine p-8 md:p-10 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#f7b733]/30 transition-all duration-500 group">
+                <div class="flex items-start gap-5">
+                    <div class="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-[#f7b733] to-[#fc4a1a] flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+                        <iconify-icon icon="lucide:terminal" width="32" class="text-white"></iconify-icon>
+                    </div>
+                    <div>
+                        <h3 class="font-syne text-2xl font-bold mb-3">IDE Assistés par IA</h3>
+                        <p class="text-gray-400 leading-relaxed mb-4">
+                            Utilisation quotidienne de <strong class="text-[#f7b733]">Cursor</strong> et <strong class="text-[#fc4a1a]">Antigravity</strong> pour un développement 10x plus rapide. Maîtrise du AI-assisted coding, de la génération de code contextuelle et du refactoring intelligent.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#f7b733]/10 text-[#f7b733] border border-[#f7b733]/20">Cursor AI</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#fc4a1a]/10 text-[#fc4a1a] border border-[#fc4a1a]/20">Antigravity</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#f7b733]/10 text-[#f7b733] border border-[#f7b733]/20">Copilot</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#fc4a1a]/10 text-[#fc4a1a] border border-[#fc4a1a]/20">Codeium</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automatisation -->
+            <div class="reveal-left card-shine p-8 md:p-10 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#fc4a1a]/30 transition-all duration-500 group">
+                <div class="flex items-start gap-5">
+                    <div class="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-[#fc4a1a] to-[#7b2ff7] flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+                        <iconify-icon icon="lucide:workflow" width="32" class="text-white"></iconify-icon>
+                    </div>
+                    <div>
+                        <h3 class="font-syne text-2xl font-bold mb-3">Automatisation</h3>
+                        <p class="text-gray-400 leading-relaxed mb-4">
+                            Conception et déploiement de workflows automatisés pour éliminer les tâches répétitives. Intégration de systèmes, automatisation des processus métier et création de pipelines de données intelligents.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#fc4a1a]/10 text-[#fc4a1a] border border-[#fc4a1a]/20">Make</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#fc4a1a]/10 text-[#fc4a1a] border border-[#fc4a1a]/20">Zapier</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#fc4a1a]/10 text-[#fc4a1a] border border-[#fc4a1a]/20">n8n</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#fc4a1a]/10 text-[#fc4a1a] border border-[#fc4a1a]/20">APIs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No-Code/Low-Code -->
+            <div class="reveal-right card-shine p-8 md:p-10 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#f7b733]/30 transition-all duration-500 group">
+                <div class="flex items-start gap-5">
+                    <div class="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-[#f7b733] to-[#7b2ff7] flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+                        <iconify-icon icon="lucide:blocks" width="32" class="text-white"></iconify-icon>
+                    </div>
+                    <div>
+                        <h3 class="font-syne text-2xl font-bold mb-3">No-Code / Low-Code</h3>
+                        <p class="text-gray-400 leading-relaxed mb-4">
+                            Construction rapide d'applications et sites web sans code ou avec un minimum de code. De l'ideation au déploiement en record time, avec des outils puissants qui permettent de prototyper et livrer des solutions professionnelles.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#f7b733]/10 text-[#f7b733] border border-[#f7b733]/20">Bubble</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#f7b733]/10 text-[#f7b733] border border-[#f7b733]/20">Webflow</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#f7b733]/10 text-[#f7b733] border border-[#f7b733]/20">FlutterFlow</span>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-[#f7b733]/10 text-[#f7b733] border border-[#f7b733]/20">Framer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROJECTS ==================== -->
+<section id="projects" class="py-24 md:py-32 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f7b733] mb-4 block">Projets</span>
+            <h2 class="font-syne text-4xl md:text-6xl font-800 tracking-tight">
+                Réalisations <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#fc4a1a] to-[#7b2ff7]">récentes</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="reveal project-card group rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden hover:border-[#f7b733]/30 transition-all duration-500" style="transition-delay: 0ms">
+                <div class="relative overflow-hidden h-56">
+                    <img src="https://picsum.photos/seed/webapp-dashboard/600/400.jpg" alt="Mini-projets Web" class="project-img w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent flex items-end p-6">
+                        <div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#f7b733]/20 text-[#f7b733]">HTML</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#fc4a1a]/20 text-[#fc4a1a]">CSS</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#7b2ff7]/20 text-[#7b2ff7]">JS</span>
+                            </div>
+                            <h4 class="font-syne text-lg font-bold">Mini-projets Web</h4>
+                            <p class="text-sm text-gray-400 mt-1">Pages web et applications simples pour comprendre la structure front-end et l'interactivité.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal project-card group rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden hover:border-[#fc4a1a]/30 transition-all duration-500" style="transition-delay: 100ms">
+                <div class="relative overflow-hidden h-56">
+                    <img src="https://picsum.photos/seed/ai-code-gen/600/400.jpg" alt="IA Appliquée" class="project-img w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent flex items-end p-6">
+                        <div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#7b2ff7]/20 text-[#7b2ff7]">IA</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#f7b733]/20 text-[#f7b733]">Prompt</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#fc4a1a]/20 text-[#fc4a1a]">Cursor</span>
+                            </div>
+                            <h4 class="font-syne text-lg font-bold">IA Appliquée au Dév.</h4>
+                            <p class="text-sm text-gray-400 mt-1">Utilisation d'outils IA pour l'aide au code, la génération de solutions et l'optimisation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal project-card group rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden hover:border-[#7b2ff7]/30 transition-all duration-500" style="transition-delay: 200ms">
+                <div class="relative overflow-hidden h-56">
+                    <img src="https://picsum.photos/seed/digital-business/600/400.jpg" alt="Digitalisation" class="project-img w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent flex items-end p-6">
+                        <div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#f7b733]/20 text-[#f7b733]">No-Code</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#fc4a1a]/20 text-[#fc4a1a]">Make</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#7b2ff7]/20 text-[#7b2ff7]">Auto</span>
+                            </div>
+                            <h4 class="font-syne text-lg font-bold">Digitalisation</h4>
+                            <p class="text-sm text-gray-400 mt-1">Analyse de besoins et proposition de solutions web : site vitrine, contact en ligne, géolocalisation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal project-card group rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden hover:border-[#f7b733]/30 transition-all duration-500" style="transition-delay: 0ms">
+                <div class="relative overflow-hidden h-56">
+                    <img src="https://picsum.photos/seed/automation-flow/600/400.jpg" alt="Automatisation" class="project-img w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent flex items-end p-6">
+                        <div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#fc4a1a]/20 text-[#fc4a1a]">Make</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#7b2ff7]/20 text-[#7b2ff7]">Zapier</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#f7b733]/20 text-[#f7b733]">API</span>
+                            </div>
+                            <h4 class="font-syne text-lg font-bold">Workflows Automatisés</h4>
+                            <p class="text-sm text-gray-400 mt-1">Pipelines d'automatisation pour éliminer les tâches répétitives et optimiser les processus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal project-card group rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden hover:border-[#fc4a1a]/30 transition-all duration-500" style="transition-delay: 100ms">
+                <div class="relative overflow-hidden h-56">
+                    <img src="https://picsum.photos/seed/react-app-modern/600/400.jpg" alt="React App" class="project-img w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent flex items-end p-6">
+                        <div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#61dafb]/20 text-[#61dafb]">React</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#f7b733]/20 text-[#f7b733]">Firebase</span>
+                            </div>
+                            <h4 class="font-syne text-lg font-bold">App React Fullstack</h4>
+                            <p class="text-sm text-gray-400 mt-1">Application web complète avec gestion des composants, authentification et base de temps réel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal project-card group rounded-2xl border border-white/5 bg-white/[0.02] overflow-hidden hover:border-[#7b2ff7]/30 transition-all duration-500" style="transition-delay: 200ms">
+                <div class="relative overflow-hidden h-56">
+                    <img src="https://picsum.photos/seed/nocode-builder/600/400.jpg" alt="No-Code Builder" class="project-img w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent flex items-end p-6">
+                        <div>
+                            <div class="flex gap-2 mb-3">
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#f7b733]/20 text-[#f7b733]">Bubble</span>
+                                <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-[#7b2ff7]/20 text-[#7b2ff7]">Webflow</span>
+                            </div>
+                            <h4 class="font-syne text-lg font-bold">SaaS No-Code</h4>
+                            <p class="text-sm text-gray-400 mt-1">Plateforme SaaS construite entièrement en No-Code avec paiement et gestion utilisateurs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== EDUCATION TIMELINE ==================== -->
+<section id="education" class="py-24 md:py-32 px-6 relative">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16 reveal">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f7b733] mb-4 block">Parcours</span>
+            <h2 class="font-syne text-4xl md:text-6xl font-800 tracking-tight">
+                Formation & <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f7b733] to-[#fc4a1a]">Éducation</span>
+            </h2>
+        </div>
+
+        <div class="relative">
+            <div class="absolute left-6 md:left-1/2 md:-translate-x-px top-0 bottom-0 timeline-line"></div>
+
+            <div class="reveal relative flex items-center mb-12 group">
+                <div class="hidden md:block md:w-1/2 md:pr-12 text-right">
+                    <span class="text-sm font-bold text-[#f7b733]">Juin 2026</span>
+                    <h3 class="font-syne text-xl font-bold mt-1">Licence Développement Web</h3>
+                    <p class="text-gray-400 text-sm mt-2">Université de Côte d'Ivoire — Développement Web et IA</p>
+                </div>
+                <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-[#f7b733] rounded-full border-4 border-[#0a0a0a] z-10 group-hover:scale-150 transition-transform"></div>
+                <div class="md:hidden pl-14">
+                    <span class="text-sm font-bold text-[#f7b733]">Juin 2026</span>
+                    <h3 class="font-syne text-xl font-bold mt-1">Licence Développement Web</h3>
+                    <p class="text-gray-400 text-sm mt-2">Université de Côte d'Ivoire</p>
+                </div>
+                <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+            </div>
+
+            <div class="reveal relative flex items-center mb-12 group" style="transition-delay: 100ms">
+                <div class="hidden md:block md:w-1/2 md:pr-12"></div>
+                <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-[#fc4a1a] rounded-full border-4 border-[#0a0a0a] z-10 group-hover:scale-150 transition-transform"></div>
+                <div class="md:w-1/2 md:pl-12 pl-14">
+                    <span class="text-sm font-bold text-[#fc4a1a]">Juillet 2025</span>
+                    <h3 class="font-syne text-xl font-bold mt-1">Baccalauréat</h3>
+                    <p class="text-gray-400 text-sm mt-2">Sciences et Technologies</p>
+                </div>
+            </div>
+
+            <div class="reveal relative flex items-center group" style="transition-delay: 200ms">
+                <div class="hidden md:block md:w-1/2 md:pr-12 text-right">
+                    <span class="text-sm font-bold text-[#7b2ff7]">En continu</span>
+                    <h3 class="font-syne text-xl font-bold mt-1">Auto-formation IA & No-Code</h3>
+                    <p class="text-gray-400 text-sm mt-2">Prompt Engineering, Cursor, Antigravity, Automatisation — Apprentissage permanent</p>
+                </div>
+                <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-[#7b2ff7] rounded-full border-4 border-[#0a0a0a] z-10 group-hover:scale-150 pulse-ring"></div>
+                <div class="md:hidden pl-14">
+                    <span class="text-sm font-bold text-[#7b2ff7]">En continu</span>
+                    <h3 class="font-syne text-xl font-bold mt-1">Auto-formation IA & No-Code</h3>
+                    <p class="text-gray-400 text-sm mt-2">Prompt Engineering, Cursor, Antigravity, Automatisation</p>
+                </div>
+                <div class="hidden md:block md:w-1/2 md:pl-12"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact" class="py-24 md:py-32 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#f7b733]/5 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto relative z-10">
+        <div class="text-center mb-16 reveal">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f7b733] mb-4 block">Contact</span>
+            <h2 class="font-syne text-4xl md:text-6xl font-800 tracking-tight">
+                Lançons un <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f7b733] to-[#fc4a1a]">projet</span>
+            </h2>
+            <p class="text-gray-400 mt-4 max-w-lg mx-auto">Vous avez une idée, un besoin de digitalisation ou d'automatisation ? Parlons-en.</p>
+        </div>
+
+        <div class="reveal-scale">
+            <form id="contactForm" class="p-8 md:p-12 rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-md">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Nom</label>
+                        <input type="text" required placeholder="Votre nom" class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:border-[#f7b733] focus:outline-none focus:ring-1 focus:ring-[#f7b733]/50 transition-all duration-300">
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Email</label>
+                        <input type="email" required placeholder="votre@email.com" class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:border-[#f7b733] focus:outline-none focus:ring-1 focus:ring-[#f7b733]/50 transition-all duration-300">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Sujet</label>
+                    <select class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-white focus:border-[#f7b733] focus:outline-none focus:ring-1 focus:ring-[#f7b733]/50 transition-all duration-300 appearance-none">
+                        <option value="" class="bg-[#0a0a0a]">Choisir un sujet</option>
+                        <option value="web" class="bg-[#0a0a0a]">Développement Web</option>
+                        <option value="nocode" class="bg-[#0a0a0a]">No-Code / Low-Code</option>
+                        <option value="ia" class="bg-[#0a0a0a]">IA & Prompt Engineering</option>
+                        <option value="auto" class="bg-[#0a0a0a]">Automatisation</option>
+                        <option value="other" class="bg-[#0a0a0a]">Autre</option>
+                    </select>
+                </div>
+                <div class="mb-8">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Message</label>
+                    <textarea rows="5" required placeholder="Décrivez votre projet..." class="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:border-[#f7b733] focus:outline-none focus:ring-1 focus:ring-[#f7b733]/50 transition-all duration-300 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full magnetic-btn group px-8 py-4 bg-gradient-to-r from-[#f7b733] to-[#fc4a1a] rounded-xl font-syne font-bold text-sm uppercase tracking-wider text-black hover:shadow-[0_0_40px_rgba(247,183,51,0.3)] transition-all duration-300 flex items-center justify-center gap-2">
+                    Envoyer le message
+                    <iconify-icon icon="lucide:send" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"></iconify-icon>
+                </button>
+            </form>
+        </div>
+
+        <!-- Contact Info Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <a href="mailto:iassim2026@gmail.com" class="reveal card-shine flex items-center gap-4 p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#f7b733]/30 transition-all duration-500 group" style="transition-delay: 0ms">
+                <div class="w-12 h-12 rounded-xl bg-[#f7b733]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <iconify-icon icon="lucide:mail" width="22" class="text-[#f7b733]"></iconify-icon>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Email</p>
+                    <p class="text-sm font-medium text-white">iassim2026@gmail.com</p>
+                </div>
+            </a>
+
+            <a href="https://bad-ass-bck.github.io/Portfolio/" target="_blank" class="reveal card-shine flex items-center gap-4 p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#fc4a1a]/30 transition-all duration-500 group" style="transition-delay: 100ms">
+                <div class="w-12 h-12 rounded-xl bg-[#fc4a1a]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <iconify-icon icon="lucide:globe" width="22" class="text-[#fc4a1a]"></iconify-icon>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Ancien Portfolio</p>
+                    <p class="text-sm font-medium text-white">Voir le site</p>
+                </div>
+            </a>
+
+            <a href="tel:+2250797066903" class="reveal card-shine flex items-center gap-4 p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-[#7b2ff7]/30 transition-all duration-500 group" style="transition-delay: 200ms">
+                <div class="w-12 h-12 rounded-xl bg-[#7b2ff7]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <iconify-icon icon="lucide:phone" width="22" class="text-[#7b2ff7]"></iconify-icon>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase tracking-wider">Téléphone</p>
+                    <p class="text-sm font-medium text-white">+225 07 97 06 69 03</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="py-12 px-6 border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+                <a href="#hero" class="font-syne text-2xl font-bold tracking-tight">
+                    <span class="text-white">A</span><span class="text-[#f7b733]">DB</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="https://github.com/bad-ass-bck" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300">
+                    <iconify-icon icon="lucide:github" width="18"></iconify-icon>
+                </a>
+                <a href="mailto:iassim2026@gmail.com" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300">
+                    <iconify-icon icon="lucide:mail" width="18"></iconify-icon>
+                </a>
+                <a href="tel:+2250797066903" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300">
+                    <iconify-icon icon="lucide:phone" width="18"></iconify-icon>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#f7b733] hover:border-[#f7b733]/30 transition-all duration-300">
+                    <iconify-icon icon="lucide:linkedin" width="18"></iconify-icon>
+                </a>
+            </div>
+            <p class="text-xs text-gray-600">© 2025 Assim Diel Boucka. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ===== Loading Screen =====
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+    }, 1800);
+});
+
+// ===== Custom Cursor =====
+const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX - 4 + 'px';
+    cursorDot.style.top = mouseY - 4 + 'px';
+});
+
+function animateRing() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    cursorRing.style.left = ringX - 20 + 'px';
+    cursorRing.style.top = ringY - 20 + 'px';
+    requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .project-card, .tilt-card, .tool-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+});
+
+// ===== Mobile Menu =====
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuLine1 = document.getElementById('menuLine1');
+const menuLine2 = document.getElementById('menuLine2');
+const menuLine3 = document.getElementById('menuLine3');
+let menuOpen = false;
+
+menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    if (menuOpen) {
+        mobileMenu.style.opacity = '1';
+        mobileMenu.style.pointerEvents = 'auto';
+        menuLine1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+        menuLine2.style.opacity = '0';
+        menuLine3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+    } else {
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.pointerEvents = 'none';
+        menuLine1.style.transform = '';
+        menuLine2.style.opacity = '1';
+        menuLine3.style.transform = '';
+    }
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.style.opacity = '0';
+        mobileMenu.style.pointerEvents = 'none';
+        menuLine1.style.transform = '';
+        menuLine2.style.opacity = '1';
+        menuLine3.style.transform = '';
+    });
+});
+
+// ===== Navbar Scroll =====
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+        navbar.style.background = 'rgba(10,10,10,0.8)';
+        navbar.style.backdropFilter = 'blur(12px)';
+        navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+    } else {
+        navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
+        navbar.style.borderBottom = 'none';
+    }
+});
+
+// ===== Typewriter =====
+const typewriterEl = document.getElementById('typewriter');
+const phrases = [
+    'Développeur Web',
+    'Spécialiste No-Code',
+    'Prompt Engineer',
+    'Automatisateur',
+    'Créateur de Solutions Digitales'
+];
+let phraseIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+let typeSpeed = 100;
+
+function typeWriter() {
+    const currentPhrase = phrases[phraseIdx];
+    if (isDeleting) {
+        typewriterEl.textContent = currentPhrase.substring(0, charIdx - 1);
+        charIdx--;
+        typeSpeed = 50;
+    } else {
+        typewriterEl.textContent = currentPhrase.substring(0, charIdx + 1);
+        charIdx++;
+        typeSpeed = 100;
+    }
+    if (!isDeleting && charIdx === currentPhrase.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        typeSpeed = 300;
+    }
+    setTimeout(typeWriter, typeSpeed);
+}
+setTimeout(typeWriter, 2500);
+
+// ===== Particles =====
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+    canvas.width = canvas.parentElement.offsetWidth;
+    canvas.height = canvas.parentElement.offsetHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.5 + 0.1;
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+    draw() {
+        ctx.fillStyle = `rgba(247, 183, 51, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < 80; i++) { particles.push(new Particle()); }
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+                ctx.strokeStyle = `rgba(247, 183, 51, ${0.05 * (1 - dist / 120)})`;
+                ctx.lineWidth = 0.5;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ===== Reveal on Scroll =====
+const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const delay = entry.target.style.transitionDelay || '0ms';
+            setTimeout(() => { entry.target.classList.add('active'); }, parseInt(delay));
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ===== Skill Bars Animation =====
+const skillFills = document.querySelectorAll('.skill-fill');
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('animate'); });
+}, { threshold: 0.5 });
+skillFills.forEach(el => skillObserver.observe(el));
+
+// ===== Counter Animation =====
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = parseInt(entry.target.dataset.target);
+            let current = 0;
+            const increment = target / 40;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    entry.target.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    entry.target.textContent = Math.floor(current);
+                }
+            }, 50);
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+// ===== Tilt Card Effect =====
+document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    });
+});
+
+// ===== Magnetic Button =====
+document.querySelectorAll('.magnetic-btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+
+// ===== Contact Form =====
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+    e.target.reset();
+});
+
+// ===== Smooth scroll =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// ===== Parallax on mouse move (hero orbs) =====
+document.getElementById('hero').addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    document.querySelectorAll('.orb').forEach((orb, i) => {
+        const speed = (i + 1) * 15;
+        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+    });
+});
+</script>
+
+</body>
+</html>
